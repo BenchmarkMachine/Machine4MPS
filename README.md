@@ -1,7 +1,3 @@
-Below is a comprehensive README.md file in English for the **Machine4MPS** project, designed to follow the standards of a top-tier AI research repository.
-
----
-
 # Machine4MPS: An Automated Benchmark Machine for Process-aware Evaluation and AI-Driven Discovery of MWP Solvers
 
 This repository contains the official implementation of **Machine4MPS**, a framework designed for the systematic evaluation and automated discovery of Math Word Problem (MWP) solvers. Unlike traditional outcome-centric benchmarks, Machine4MPS leverages **State-Transform Theory** to decompose solvers into modular components, enabling fine-grained process-aware diagnosis and the automated search for optimized solver configurations.
