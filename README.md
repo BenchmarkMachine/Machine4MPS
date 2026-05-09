@@ -93,7 +93,7 @@ where each $S$ represents a structured state (e.g., a Quantitative Relation Grap
 The framework is optimized for the **LMV24K** dataset, which includes:
 - **24,000+** problems with fine-grained annotations.
 - **Type 1/2/3** categorization based on reasoning complexity.
-- **Intermediate Ground-truth** for Equations, Logic Graphs, and Numerical Relations.
+- **Intermediate Ground-truth** for Equations, Answers, and Numerical Relations.
 
 ---
 
