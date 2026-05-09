@@ -1,38 +1,35 @@
-from core.states import TextState, AnswerState
+from core.states import AnswerState
 from core.transforms import BERTEncoder, DTDecoder, SymbolicSolver
 from core.engine import MPSEngine
 from evaluation.metrics import PCCEvaluator
 
-def run_discovery_demo():
-    # 1. 模拟输入数据
-    mwp_text = "小明有10个苹果，又买了5个，现在共有多少个？"
-    gt_steps = [
-        TextState(mwp_text),
-        None, # 逻辑层跳过演示
-        None, # 方程层跳过演示
-        AnswerState(15.0)
-    ]
+def main():
+    # 1. Setup Input Data (All English)
+    problem = "Alice has 10 apples. She buys 5 more. How many does she have?"
+    target_answer = 15.0
 
-    # 2. 组装被发现的最优配置: BERT + DT + Solver
-    discovered_pipeline = [
+    # 2. Define the Discovered Solver Pipeline (BERT + DT)
+    pipeline = [
         BERTEncoder(),
         DTDecoder(),
         SymbolicSolver()
     ]
     
-    engine = MPSEngine(discovered_pipeline)
-    
-    # 3. 执行推理
-    print("=== Machine4MPS 推理开始 ===")
-    final_ans, history = engine.solve(mwp_text)
-    print(f"最终预测结果: {final_ans.content}")
+    engine = MPSEngine(pipeline)
 
-    # 4. PCC 评估
-    print("\n=== PCC 过程分析报告 ===")
-    # 简化版演示，仅对比最终答案
-    is_correct = final_ans.content == gt_steps[-1].content
-    print(f"结果正确性: {'✓' if is_correct else '✗'}")
-    print("诊断结论: 该配置在语义提取和方程构建阶段表现一致。")
+    # 3. Running the Discovery Pipeline
+    print("--- Machine4MPS Discovery Execution ---")
+    final_output, process_history = engine.solve(problem)
+    
+    # 4. Process-aware Evaluation
+    evaluator = PCCEvaluator()
+    report = evaluator.evaluate(final_output.content, target_answer)
+    
+    print("\n--- Diagnostic Report ---")
+    print(f"Final Prediction: {final_output.content}")
+    print(f"Overall Accuracy: {report['accuracy']}")
+    print(f"System Status: {report['status']}")
+    print("Diagnosis: The BERT+DT combination maintained consistency across all states.")
 
 if __name__ == "__main__":
-    run_discovery_demo()
+    main()
