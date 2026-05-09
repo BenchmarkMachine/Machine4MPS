@@ -1,0 +1,14 @@
+# Global Environment Settings
+environment:
+  device: "cuda" # or "cpu"
+  seed: 42
+  num_workers: 4
+
+paths:
+  data_root: "./data/sample_data.json"
+  output_dir: "./results/discovery_logs"
+  checkpoint_dir: "./checkpoints"
+
+logging:
+  level: "INFO"
+  format: "pretty"

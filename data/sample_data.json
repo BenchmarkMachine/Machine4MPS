@@ -1,0 +1,23 @@
+[
+  {
+    "id": "PROB_001",
+    "type": 1,
+    "question": "Bob has 5 dollars. He spends 2 dollars. How much is left?",
+    "equations": ["x = 5 - 2"],
+    "answer": 3.0
+  },
+  {
+    "id": "PROB_002",
+    "type": 2,
+    "question": "A rectangle has a length of 10 and a width of 5. What is the area?",
+    "equations": ["area = 10 * 5"],
+    "answer": 50.0
+  },
+  {
+    "id": "PROB_003",
+    "type": 3,
+    "question": "If 3x + 5 = 20, what is the value of x?",
+    "equations": ["3x + 5 = 20", "3x = 15", "x = 5"],
+    "answer": 5.0
+  }
+]

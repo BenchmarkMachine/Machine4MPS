@@ -1,0 +1,35 @@
+# Define the search space for Automated Solver Discovery
+search_space_name: "mwp_standard_v1"
+
+# Available modules for each stage of the State-Transform sequence
+stages:
+  - stage: "Text_to_Logic"
+    candidates:
+      - module: "core.transforms.BERTEncoder"
+        weight: 0.4
+      - module: "core.transforms.RoBERTaEncoder"
+        weight: 0.3
+      - module: "core.transforms.LLMPromptEncoder"
+        weight: 0.3
+
+  - stage: "Logic_to_Equation"
+    candidates:
+      - module: "core.transforms.DTDecoder" # Deep-Tree
+        weight: 0.5
+      - module: "core.transforms.GNNReasoning" # Graph Neural Network
+        weight: 0.3
+      - module: "core.transforms.RuleBasedMapper"
+        weight: 0.2
+
+  - stage: "Equation_to_Answer"
+    candidates:
+      - module: "core.transforms.SymbolicSolver"
+        weight: 0.9
+      - module: "core.transforms.NumericalInterpreter"
+        weight: 0.1
+
+# Optimization constraints
+optimization:
+  max_iterations: 50
+  discovery_metric: "accuracy_and_consistency"
+  early_stopping_patience: 5

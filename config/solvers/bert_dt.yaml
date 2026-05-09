@@ -1,0 +1,30 @@
+# Configuration for the discovered high-performance solver
+solver_name: "discovered_bert_dt_v1"
+version: "1.0.0"
+
+# Sequence of transforms according to State-Transform Theory
+pipeline:
+  - name: "Language_Understanding"
+    module: "core.transforms.BERTEncoder"
+    params:
+      model_path: "bert-base-uncased"
+      max_length: 512
+      device: "cuda"
+
+  - name: "Reasoning_Bridge"
+    module: "core.transforms.DTDecoder"
+    params:
+      search_strategy: "dfs"
+      max_depth: 10
+      pruning: true
+
+  - name: "Final_Execution"
+    module: "core.transforms.SymbolicSolver"
+    params:
+      precision: 4
+      timeout: 2.0
+
+# Evaluation settings for this specific solver
+evaluation:
+  metric: "pcc"
+  log_intermediate_states: true
